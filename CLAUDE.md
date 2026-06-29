@@ -16,9 +16,33 @@
 
 ## 핵심 비즈니스 로직
 
-TODO
-과제를 받은 뒤 이 섹션에 핵심 로직을 의사코드로 먼저 정의한다.
-정의가 완료될 때까지 구현을 시작하지 않는다.
+```
+// 메뉴 조회
+GetMenusUseCase(category):
+  menus = menuRepository.getMenus()
+  if category == 전체: return menus
+  return menus.filter { it.category == category }
+
+// 장바구니 조회
+GetCartUseCase():
+  return cartRepository.getCartItems()  // Flow<List<CartItem>>
+
+// 장바구니 추가
+AddToCartUseCase(menu):
+  if menu.isSoldOut: return  // 품절 메뉴는 추가 불가
+  cartRepository.addOrIncrement(menu)
+
+// 장바구니 수량 변경
+UpdateCartItemUseCase(menuId, delta):
+  newQty = cartRepository.getQuantity(menuId) + delta
+  if newQty <= 0: cartRepository.remove(menuId)
+  else: cartRepository.updateQuantity(menuId, newQty)
+
+// 주문 완료
+PlaceOrderUseCase():
+  cartRepository.clear()
+  // 화면 이동은 Presentation 레이어에서 처리
+```
 
 ---
 
@@ -92,25 +116,33 @@ app/src/main/java/com/jisu98/order/
 │   └── AppModule.kt
 ├── data/
 │   ├── model/
-│   │   └── TodoDto.kt
+│   │   └── MenuDto.kt
 │   └── repository/
-│       └── TodoRepositoryImpl.kt
+│       ├── MenuRepositoryImpl.kt
+│       └── CartRepositoryImpl.kt
 ├── domain/
 │   ├── model/
-│   │   └── Todo.kt
+│   │   ├── Menu.kt
+│   │   ├── CartItem.kt
+│   │   └── Category.kt
 │   ├── repository/
-│   │   └── TodoRepository.kt
+│   │   ├── MenuRepository.kt
+│   │   └── CartRepository.kt
 │   └── usecase/
-│       └── TodoUseCase.kt
+│       ├── GetMenusUseCase.kt
+│       ├── GetCartUseCase.kt
+│       ├── AddToCartUseCase.kt
+│       ├── UpdateCartItemUseCase.kt
+│       └── PlaceOrderUseCase.kt
 └── presentation/
-    ├── todo1/
-    │   ├── Todo1Screen.kt
-    │   ├── Todo1ViewModel.kt
-    │   └── Todo1UiState.kt
-    └── todo2/
-        ├── Todo2Screen.kt
-        ├── Todo2ViewModel.kt
-        └── Todo2UiState.kt
+    ├── menu/
+    │   ├── MenuScreen.kt
+    │   ├── MenuViewModel.kt
+    │   └── MenuUiState.kt
+    └── order/
+        ├── OrderScreen.kt
+        ├── OrderViewModel.kt
+        └── OrderUiState.kt
 ```
 
 ---
