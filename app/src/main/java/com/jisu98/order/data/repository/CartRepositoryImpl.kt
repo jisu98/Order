@@ -1,18 +1,24 @@
 package com.jisu98.order.data.repository
 
+import com.jisu98.order.domain.model.Cart
 import com.jisu98.order.domain.model.CartItem
 import com.jisu98.order.domain.model.Menu
 import com.jisu98.order.domain.repository.CartRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 class CartRepositoryImpl @Inject constructor() : CartRepository {
     private val _cartItems = MutableStateFlow<List<CartItem>>(emptyList())
 
-    override fun getCartItems(): Flow<List<CartItem>> = _cartItems.asStateFlow()
+    override fun getCart(): Flow<Cart> = _cartItems.map { items ->
+        Cart(
+            items = items,
+            totalPrice = items.sumOf { it.menu.price * it.quantity },
+        )
+    }
 
     override fun getQuantity(menuId: Int): Int =
         _cartItems.value.find { it.menu.id == menuId }?.quantity ?: 0
