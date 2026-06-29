@@ -1,0 +1,33 @@
+# Built outputs
+/build
+**/build/
+
+# Gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+.gradletasknamecache
+
+# Android Studio / IntelliJ IDEA
+*.iml
+.idea/
+
+# Local configuration (contains SDK path, secrets, etc.)
+local.properties
+
+# NDK / CMake
+.externalNativeBuild/
+.cxx/
+
+# Signing keystore files
+*.jks
+*.keystore
+
+# Profiling / captures
+/captures
+
+# macOS
+.DS_Store
+
+# Kotlin
+*.kotlin_module
