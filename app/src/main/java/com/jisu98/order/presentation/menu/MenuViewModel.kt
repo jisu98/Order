@@ -53,7 +53,13 @@ class MenuViewModel @Inject constructor(
     private fun observeCart() {
         getCartUseCase().onEach { cartItems ->
             val current = _uiState.value as? MenuUiState.Success ?: return@onEach
-            _uiState.update { current.copy(cartItems = cartItems) }
+            _uiState.update {
+                current.copy(
+                    cartItems = cartItems,
+                    cartTotalCount = cartItems.sumOf { it.quantity },
+                    cartTotalPrice = cartItems.sumOf { it.menu.price * it.quantity },
+                )
+            }
         }.launchIn(viewModelScope)
     }
 }

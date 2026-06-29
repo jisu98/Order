@@ -11,10 +11,9 @@ sealed class MenuUiState {
         val selectedCategory: Category = Category.ALL,
         val menus: List<Menu> = emptyList(),
         val cartItems: List<CartItem> = emptyList(),
-    ) : MenuUiState() {
-        val cartTotalCount: Int get() = cartItems.sumOf { it.quantity }
-        val cartTotalPrice: Int get() = cartItems.sumOf { it.menu.price * it.quantity }
-    }
+        val cartTotalCount: Int = 0,
+        val cartTotalPrice: Int = 0,
+    ) : MenuUiState()
 
     data class Error(val message: String) : MenuUiState()
 }

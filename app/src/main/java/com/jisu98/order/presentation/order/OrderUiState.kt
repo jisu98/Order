@@ -7,9 +7,8 @@ sealed class OrderUiState {
 
     data class Success(
         val cartItems: List<CartItem> = emptyList(),
-    ) : OrderUiState() {
-        val totalPrice: Int get() = cartItems.sumOf { it.menu.price * it.quantity }
-    }
+        val totalPrice: Int = 0,
+    ) : OrderUiState()
 
     data class Error(val message: String) : OrderUiState()
 }

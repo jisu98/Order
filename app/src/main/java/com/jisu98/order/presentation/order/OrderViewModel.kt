@@ -40,7 +40,12 @@ class OrderViewModel @Inject constructor(
 
     private fun observeCart() {
         getCartUseCase().onEach { cartItems ->
-            _uiState.update { OrderUiState.Success(cartItems = cartItems) }
+            _uiState.update {
+                OrderUiState.Success(
+                    cartItems = cartItems,
+                    totalPrice = cartItems.sumOf { it.menu.price * it.quantity },
+                )
+            }
         }.launchIn(viewModelScope)
     }
 }
