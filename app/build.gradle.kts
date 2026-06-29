@@ -55,18 +55,17 @@ tasks.register<JacocoReport>("jacocoTestReport") {
         html.required = true
     }
 
-    val excludes = listOf(
-        "**/R.class", "**/R\$*.class", "**/BuildConfig.*", "**/Manifest*.*",
-        "**/*Test*.*", "android/**/*.*",
-        "**/*_Hilt*.*", "**/Hilt_*.*", "**/*_Factory*.*", "**/*_MembersInjector*.*",
-        "**/*Module*.*", "**/*Component*.*",
+    val includes = listOf(
+        "**/com/jisu98/order/domain/**/*.class",
+        "**/com/jisu98/order/data/**/*.class",
+        "**/com/jisu98/order/presentation/**/*ViewModel.class",
     )
 
     val debugTree = fileTree("${layout.buildDirectory.get()}/intermediates/javac/debug") {
-        exclude(excludes)
+        include(includes)
     }
     val kotlinDebugTree = fileTree("${layout.buildDirectory.get()}/tmp/kotlin-classes/debug") {
-        exclude(excludes)
+        include(includes)
     }
 
     classDirectories.setFrom(files(debugTree, kotlinDebugTree))
