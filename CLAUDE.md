@@ -208,29 +208,21 @@ app/src/main/java/com/jisu98/order/
 
 ---
 
-[//]: # (## 테스트 - 시간 남을 경우 추가)
+## 테스트 - 시간 남을 경우 추가
 
-[//]: # ()
-[//]: # (### JaCoCo 설정)
+### JaCoCo 설정
 
-[//]: # (- 유닛 테스트 커버리지는 JaCoCo로 측정한다)
+- 유닛 테스트 커버리지는 JaCoCo로 측정한다
+- `app/build.gradle.kts`에 JaCoCo 플러그인 적용
 
-[//]: # (- `app/build.gradle.kts`에 JaCoCo 플러그인 적용)
+### 테스트 대상
 
-[//]: # ()
-[//]: # (### 테스트 대상)
+- UseCase 단위 테스트 필수
+- Repository 구현체 단위 테스트 필수
+- ViewModel 단위 테스트 필수
+- 테스트 프레임워크: JUnit4 + MockK + kotlinx-coroutines-test
 
-[//]: # (- UseCase 단위 테스트 필수)
+### 테스트 규칙
 
-[//]: # (- Repository 구현체 단위 테스트 필수)
-
-[//]: # (- ViewModel 단위 테스트 필수)
-
-[//]: # (- 테스트 프레임워크: JUnit4 + MockK + kotlinx-coroutines-test)
-
-[//]: # ()
-[//]: # (### 테스트 규칙)
-
-[//]: # (- 테스트 함수명: `given <state/condition> when <action> then <expected result>` 형식)
-
-[//]: # (- 각 테스트는 하나의 동작만 검증)
+- 테스트 함수명: `given <state/condition> when <action> then <expected result>` 형식
+- 각 테스트는 하나의 동작만 검증
